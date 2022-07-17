@@ -10,6 +10,6 @@ COPY package*.json ./
 RUN npm install
 
 # Recommended to run dependencies before copying scripts for faster image building (cached dependencies)
-COPY . ./
+COPY . .
 
 CMD ["npm", "run", "dev"]
