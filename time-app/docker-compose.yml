@@ -6,6 +6,11 @@ services:
     restart: always
     ports:
       - '3000:3000'
+    volumes:
+      # folder we do no want to replace because /node_modules is not created on our local machince. 
+      # hence, if we do not write this line, /node_modules will be deleted inside the container.
+      - /app/node_modules     # dir inside container   
+      - ./frontend:/app       # dir on our local machine
   api:
     build: ./api
     restart: always
@@ -14,6 +19,9 @@ services:
     # This container will start only after mysql container is up
     depends_on:
       - mysql
+    volumes:
+      - /app/node_modules
+      - ./api:/app
   mysql:
     image: mysql
     restart: always
